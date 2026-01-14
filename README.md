@@ -1,44 +1,52 @@
-# 🧠 Explainable Analytics Copilot (XAC)
+# 🚀 XAC: Explainable Analytics Copilot
 
-**A constrained conversational interface for explaining machine learning model outputs using structured evidence, SHAP values, and ethical AI practices.**
+**Hey! I'm Stephen Muema, and I built this because I was tired of ML models being black boxes.**
+
+This isn't another generic ML tool. XAC is my answer to a simple question: *"Why did my model make that prediction?"* But it's evolved into something way more powerful - **XAC Pro** - your universal ML explainability assistant that understands EVERYTHING about machine learning.
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Code style: professional](https://img.shields.io/badge/code%20style-professional-green.svg)]()
+[![Made with ❤️](https://img.shields.io/badge/made%20with-%E2%9D%A4%EF%B8%8F-red.svg)]()
 
 ---
 
-## 👤 Author Information
+## 🎯 What Is This?
 
-**Muema Stephen**  
-Data Science Student | Machine Learning Specialist | Analytics Expert
+XAC started as a constrained conversational interface for explaining ML predictions. Now it's evolved into **XAC Pro** - think of it as having a senior ML engineer in your terminal who:
 
-- 📧 **Email:** musyokas753@gmail.com
-- 💼 **LinkedIn:** [www.linkedin.com/in/stephen-muema-617339359](https://www.linkedin.com/in/stephen-muema-617339359)
-- 🌐 **Portfolio:** [stephenmueama.com](https://stephenmueama.com)
-- 📍 **Location:** Kiambu, Kenya
+✅ **Explains** your model predictions using SHAP and structured evidence  
+✅ **Teaches** you ML concepts from beginner to expert level  
+✅ **Answers** literally ANY ML question you throw at it  
+✅ **Recommends** which algorithms and metrics to use  
+✅ **Troubleshoots** your ML problems (low recall? I got you)  
+✅ **Works** 100% locally - no API keys, no cloud, no BS  
+
+### Why I Built This
+
+Look, I love ML. But I hate when models act like fortune tellers - giving you predictions with zero explanation. And I especially hate when I have to Google the same ML concepts over and over because I forgot what "bias-variance tradeoff" means.
+
+So I built XAC. First version was simple - explain predictions using SHAP. But then I thought: *"Why stop there?"* Why not build a system that knows EVERYTHING about ML and can teach it to anyone?
+
+That's XAC Pro.
 
 ---
 
-## 🎯 Project Overview
+## 🆕 XAC Pro: What's New
 
-The **Explainable Analytics Copilot (XAC)** is a production-grade system that explains machine learning model predictions using structured, verifiable evidence. Unlike general-purpose AI assistants, XAC is specifically constrained to:
+### Version 1.0 (Classic XAC)
+- ✅ Evidence-based explanations
+- ✅ SHAP integration
+- ✅ Safety guardrails
+- ✅ Intent classification
 
-✅ **Explain** existing model outputs  
-✅ **Ground** all claims in structured evidence  
-✅ **Refuse** predictions, advice, and causal claims  
-✅ **Provide** confidence levels and limitations  
-✅ **Work** completely free and locally  
-
-### Key Features
-
-- **Evidence-Based Explanations:** All claims traceable to structured JSON evidence
-- **SHAP Integration:** Uses SHAP values for theoretically sound feature importance
-- **Safety Guardrails:** Multiple validation layers prevent harmful outputs
-- **Intent Classification:** Automatically understands user questions
-- **Professional Output:** Business-ready explanations with clear structure
-- **Free & Local:** No paid APIs, cloud services, or internet required
-- **Reusable:** Works across any ML project with predictions and feature importance
+### Version 2.0 (XAC Pro) - **NEW!**
+- ✅ **ML Knowledge Base** - 15+ concepts, 12+ algorithms, 12+ metrics
+- ✅ **Universal ML Teacher** - Ask ANY ML question
+- ✅ **Multi-level Explanations** - Beginner, Expert, Business
+- ✅ **Smart Recommendations** - Which algorithm? Which metric?
+- ✅ **Troubleshooting** - "Why is my recall 0%?" → Get answers
+- 🔄 **Auto-Discovery** - Coming soon: Analyze notebooks automatically
+- 🔄 **CLI Interface** - Coming soon: `xac-pro analyze notebook.ipynb`
 
 ---
 
@@ -47,23 +55,20 @@ The **Explainable Analytics Copilot (XAC)** is a production-grade system that ex
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/explainable-analytics-copilot.git
-cd explainable-analytics-copilot
+# Clone the repo
+git clone https://github.com/Kaks753/XAC
+cd XAC
 
-# Install dependencies
+# Install dependencies (minimal - no paid APIs!)
 pip install -r requirements.txt
 ```
 
-### Basic Usage
+### Use XAC Classic (v1.0) - Explain Predictions
 
 ```python
-from copilot import (
-    ExplainableAnalyticsCopilot,
-    EvidenceBuilder,
-)
+from src.copilot import ExplainableAnalyticsCopilot, EvidenceBuilder
 
-# Initialize copilot
+# Initialize
 copilot = ExplainableAnalyticsCopilot()
 
 # Build evidence from your model
@@ -83,330 +88,343 @@ evidence = EvidenceBuilder.build_user_explanation_evidence(
     base_value=88.0,
 )
 
-# Ask a question
-response = copilot.explain(
-    "Why is user 102's productivity score 78?",
-    evidence
-)
-
+# Ask anything
+response = copilot.explain("Why is user 102's score low?", evidence)
 print(response.explanation)
 ```
 
-### Interactive Demo
+### Use XAC Pro (v2.0) - Ask ANY ML Question
 
-Run the comprehensive Jupyter notebook demo:
+```python
+from xac_pro.core.ml_teacher import MLTeacher
 
-```bash
-cd notebooks
-jupyter notebook demo.ipynb
+# Initialize ML Teacher
+teacher = MLTeacher()
+
+# Ask literally anything about ML
+print(teacher.ask("What is overfitting?"))
+# → Clear explanation with symptoms and solutions
+
+print(teacher.ask("When should I use XGBoost?"))
+# → Detailed guide with strengths, weaknesses, use cases
+
+print(teacher.ask("Why is my recall 0%?"))
+# → Troubleshooting guide with 5 common causes + fixes
+
+print(teacher.ask("Which algorithm for small data classification?"))
+# → Smart recommendations based on constraints
+
+print(teacher.ask("Difference between precision and recall?"))
+# → Side-by-side comparison with examples
 ```
+
+---
+
+## 💡 What Makes XAC Different?
+
+### 1. Evidence-First, Not Magic
+Other tools: *"Trust me bro, this feature is important"*  
+XAC: *"Here's the SHAP value (-0.31), feature value (15), and exactly how it contributed"*
+
+### 2. Teaching, Not Just Answering
+Other tools: *"Overfitting is when your model..."* (generic definition)  
+XAC Pro: *Beginner explanation + symptoms + solutions + related concepts + expert math*
+
+### 3. Context-Aware Explanations
+- **Beginner:** "Think of it like sorting mail into boxes..."
+- **Expert:** "Formally defined as C_ij = count(y_true=i, y_pred=j)..."
+- **Business:** "Shows prediction accuracy: 85% correct, 15% need review"
+
+### 4. Zero Dependencies on Paid Services
+No OpenAI API. No Anthropic. No cloud. No credit card. Just Python.
+
+### 5. Built for Real ML Work
+This isn't a toy. I use this in my actual ML projects. It handles:
+- Classification, regression, clustering
+- Any sklearn model, XGBoost, LightGBM
+- Imbalanced data, missing values, outliers
+- Production constraints (speed, interpretability)
+
+---
+
+## 🧠 XAC Pro Capabilities
+
+### ML Knowledge Base
+```python
+from xac_pro.core.knowledge_base import MLKnowledgeBase
+
+kb = MLKnowledgeBase()
+
+# Explain any concept
+print(kb.explain_concept("overfitting", level="beginner"))
+print(kb.explain_concept("overfitting", level="expert"))
+
+# Explain any algorithm
+print(kb.explain_algorithm("xgboost", level="business"))
+
+# Explain any metric
+print(kb.explain_metric("f1_score", level="beginner"))
+
+# Get recommendations
+algos = kb.get_algorithm_for_problem("classification", ["small_data", "interpretable"])
+metrics = kb.get_metrics_for_problem("classification", "imbalanced_classes")
+```
+
+### Universal ML Teacher
+```python
+from xac_pro.core.ml_teacher import MLTeacher
+
+teacher = MLTeacher()
+
+# Works with natural language
+teacher.ask("What is bias-variance tradeoff?")
+teacher.ask("When should I use Random Forest vs XGBoost?")
+teacher.ask("Why is accuracy misleading?")
+teacher.ask("How does SMOTE work?")
+teacher.ask("Which metric for imbalanced data?")
+```
+
+### Knowledge Coverage
+- **15+ ML Concepts:** Overfitting, underfitting, bias-variance, regularization, cross-validation, feature importance, SHAP, class imbalance, and more
+- **12+ Algorithms:** Logistic Regression, Random Forest, XGBoost, LightGBM, SVM, Naive Bayes, Decision Trees, KNN, Neural Networks, K-Means, PCA, and more
+- **12+ Metrics:** Accuracy, Precision, Recall, F1, ROC-AUC, PR-AUC, Confusion Matrix, MSE, RMSE, MAE, R², Log Loss, and more
 
 ---
 
 ## 📁 Project Structure
 
 ```
-explainable-analytics-copilot/
-├── README.md                      # This file
-├── LICENSE                        # MIT License
-├── requirements.txt               # Python dependencies
-├── src/
-│   └── copilot/
-│       ├── __init__.py           # Package initialization
-│       ├── intent.py             # Intent classification
-│       ├── evidence_builder.py   # Evidence construction
-│       ├── guardrails.py         # Safety boundaries
-│       ├── prompt_templates.py   # Explanation templates
-│       └── copilot.py            # Main orchestration
-├── examples/
-│   ├── example_inputs.json       # Sample queries
-│   ├── example_evidence.json     # Sample evidence
-│   └── example_outputs.md        # Sample explanations
-├── notebooks/
-│   └── demo.ipynb                # Interactive demonstration
-└── tests/
-    └── (unit tests - optional)
+XAC/
+├── src/copilot/          # XAC Classic (v1.0)
+│   ├── copilot.py        # Main orchestration
+│   ├── intent.py         # Intent classification
+│   ├── evidence_builder.py  # Evidence construction
+│   ├── guardrails.py     # Safety boundaries
+│   └── prompt_templates.py  # Explanation templates
+│
+├── xac_pro/              # XAC Pro (v2.0) - NEW!
+│   ├── core/
+│   │   ├── knowledge_base.py   # ML knowledge system
+│   │   └── ml_teacher.py       # Universal ML teacher
+│   ├── knowledge/
+│   │   ├── ml_concepts.json    # Concept encyclopedia
+│   │   ├── algorithms_db.json  # Algorithm database
+│   │   └── metrics_db.json     # Metrics reference
+│   ├── analyzers/        # Coming soon: Auto-discovery
+│   ├── explainers/       # Coming soon: Domain-specific explainers
+│   ├── interfaces/       # Coming soon: CLI, web, API
+│   └── utils/            # Coming soon: SHAP wrappers, viz
+│
+├── examples/             # Sample inputs/outputs
+├── notebooks/            # Interactive demos
+├── XAC_PRO_ROADMAP.md   # Full vision & implementation plan
+└── README.md            # You are here!
 ```
 
 ---
 
-## 🏗️ Architecture
+## 🎓 Real-World Examples
 
-XAC follows a clean pipeline architecture:
-
-```
-┌─────────────┐
-│ User Query  │
-└──────┬──────┘
-       ↓
-┌─────────────────────┐
-│ Intent Classifier   │  ← Pattern-based classification
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Guardrails Check    │  ← Refusal patterns, ethical boundaries
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Evidence Retrieval  │  ← Structured JSON with SHAP, metrics
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Evidence Validation │  ← Sufficiency checks
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Template Selection  │  ← Match template to intent
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Explanation Gen.    │  ← Evidence → natural language
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Response Validation │  ← Check for predictions, advice
-└──────┬──────────────┘
-       ↓
-┌─────────────────────┐
-│ Return to User      │
-└─────────────────────┘
-```
-
----
-
-## 🧩 Core Components
-
-### 1. Intent Classifier (`intent.py`)
-
-Classifies user queries into supported categories:
-
-- **user_explanation:** Explain a specific prediction
-- **feature_importance:** Most important features
-- **trend_comparison:** Compare to historical patterns
-- **model_performance:** Model quality metrics
-- **unsupported_request:** Refused (predictions, advice, etc.)
-
-**Design Choice:** Pattern-based for transparency and determinism.
-
-### 2. Evidence Builder (`evidence_builder.py`)
-
-Constructs structured evidence packages containing:
-
-- Predictions and metadata
-- SHAP values / feature contributions
-- Historical comparisons
-- Model performance metrics
-- Confidence levels
-- Explicit limitations
-
-**Design Choice:** Structured JSON for reproducibility and auditability.
-
-### 3. Guardrails (`guardrails.py`)
-
-Enforces safety boundaries:
-
-- ❌ No predictions or forecasts
-- ❌ No advice or recommendations
-- ❌ No causal claims
-- ❌ No counterfactual speculation
-- ❌ No medical/legal/financial advice
-
-**Design Choice:** Multiple validation layers for defense-in-depth.
-
-### 4. Prompt Templates (`prompt_templates.py`)
-
-Converts evidence to natural language:
-
-- Professional, business-appropriate tone
-- Structured, scannable format
-- Always includes confidence and limitations
-- Markdown formatting for readability
-
-**Design Choice:** Template-based for consistency and control.
-
-### 5. Copilot Orchestrator (`copilot.py`)
-
-Brings everything together:
-
-- Pipeline orchestration
-- Error handling
-- Logging for debugging
-- Structured response objects
-
-**Design Choice:** Clean API, easy integration.
-
----
-
-## 🎓 Design Rationale
-
-### Why This Approach?
-
-1. **Evidence-First Architecture**
-   - Every claim must be traceable to structured data
-   - Prevents hallucinations and unfounded assertions
-   - Enables audit trails for compliance
-
-2. **Safety by Design**
-   - Multiple validation layers (query → evidence → response)
-   - Conservative refusal policy (when uncertain, refuse)
-   - Explicit about limitations and confidence
-
-3. **Deterministic Behavior**
-   - Same query + evidence → same explanation
-   - No randomness, no prompt engineering brittleness
-   - Fully reproducible for testing and validation
-
-4. **Free and Local**
-   - No dependency on paid APIs (OpenAI, Anthropic, etc.)
-   - Runs entirely offline
-   - No data leaves your infrastructure
-   - Portfolio-friendly (anyone can run it)
-
-5. **Production-Ready**
-   - Clean architecture with separation of concerns
-   - Type hints and docstrings throughout
-   - Logging for observability
-   - Extensible for new intent types
-
----
-
-## 📊 Example Use Cases
-
-### 1. Employee Productivity
-
+### Example 1: Explain a Prediction
 ```python
-# Explain why an employee's productivity score is low
-query = "Why is user 102's productivity score 78?"
-# → Shows task switching, sleep deficit, meeting hours as top factors
+# Classic XAC workflow
+copilot = ExplainableAnalyticsCopilot()
+response = copilot.explain("Why is this prediction 78?", evidence)
+
+# Output:
+# "User 102's productivity score of 78 is below the baseline of 88.
+#  The main contributing factors are:
+#  1. Task switching (15 switches) → -0.31 impact
+#  2. Sleep deficit (2.5 hours) → -0.22 impact
+#  3. Meeting hours (4.2 hours) → -0.15 impact"
 ```
 
-### 2. Customer Churn
-
+### Example 2: Learn ML Concepts
 ```python
-# Identify most important churn predictors
-query = "What are the most important features in the churn model?"
-# → Ranks features like engagement, tenure, support tickets
+# XAC Pro teaching mode
+teacher = MLTeacher()
+
+# Beginner explanation
+print(teacher.ask("What is overfitting?", level="beginner"))
+# "When your model memorizes training data instead of learning patterns..."
+
+# Expert explanation  
+print(teacher.ask("What is overfitting?", level="expert"))
+# "High variance model that captures noise in training data.
+#  Formally, model complexity exceeds optimal point on bias-variance curve..."
 ```
 
-### 3. Sales Forecasting
-
+### Example 3: Troubleshoot Problems
 ```python
-# Compare current performance to historical trends
-query = "How does this quarter's performance compare to baseline?"
-# → Shows deviation from historical average with confidence
+# Real problem I had last week
+print(teacher.ask("Why is my recall 0% for class A?"))
+
+# XAC Pro Response:
+# "Common causes:
+#  1. Class imbalance - Try class_weight='balanced'
+#  2. Insufficient data - Use SMOTE
+#  3. Features don't discriminate - Feature engineering
+#  4. Model too simple - Try XGBoost
+#  5. Threshold too high - Lower decision threshold
+#  
+#  Quick fix: model = LogisticRegression(class_weight='balanced')"
+```
+
+### Example 4: Choose Algorithms
+```python
+# I never remember which algorithm to use
+recommendations = kb.get_algorithm_for_problem(
+    "classification",
+    constraints=["small_data", "interpretable"]
+)
+
+# Returns: ["logistic_regression", "decision_tree", "naive_bayes"]
+# Each with full explanation of strengths/weaknesses
 ```
 
 ---
 
-## 🔒 Ethical AI Principles
+## 🔬 Design Philosophy
 
-XAC is designed with ethical AI principles at its core:
+### 1. Evidence-First Architecture
+Every claim must trace back to structured data. No hallucinations. No unfounded assertions.
 
-1. **Transparency:** Always shows confidence and limitations
-2. **Accountability:** All claims traceable to evidence
-3. **Safety:** Refuses inappropriate requests
-4. **Fairness:** No discrimination in refusal patterns
-5. **Privacy:** No data storage or external transmission
+### 2. Safety by Design
+Multiple validation layers. Conservative refusals. Explicit about limitations.
 
----
+### 3. Teaching Over Telling
+Don't just give answers. Build understanding. Connect concepts. Show the "why."
 
-## 🧪 Testing
+### 4. Real-World Practicality
+Built for actual ML work, not academic papers. Handles messy data, imbalanced classes, production constraints.
 
-### Run Unit Tests
-
-```bash
-# If you implement tests (optional but recommended)
-pytest tests/ -v --cov=src/copilot
-```
-
-### Manual Testing
-
-```bash
-# Test intent classification
-cd src/copilot
-python intent.py
-
-# Test evidence building
-python evidence_builder.py
-
-# Test guardrails
-python guardrails.py
-
-# Test full copilot
-python copilot.py
-```
+### 5. Free and Local
+No API keys. No cloud. No tracking. Your data never leaves your machine.
 
 ---
 
-## 🚧 Future Enhancements
+## 🚧 What's Coming Next
 
-Potential improvements (without breaking core principles):
+I'm actively developing XAC Pro. Here's what's on the roadmap:
 
-- [ ] More sophisticated intent classification (embeddings)
-- [ ] Support for more model types (ranking, clustering)
-- [ ] Visualization generation (SHAP plots, trends)
-- [ ] Multi-language support
-- [ ] Confidence calibration using historical accuracy
-- [ ] A/B test explanation effectiveness
-- [ ] Integration with popular ML frameworks (scikit-learn, XGBoost)
+### Phase 2 (Next 2 Weeks)
+- [ ] **Auto-Discovery Engine** - `xac.analyze("notebook.ipynb")` → Full analysis
+- [ ] **Notebook Analyzer** - Parse .ipynb, extract models, metrics, issues
+- [ ] **Model Analyzer** - Auto-detect model type, hyperparameters, SHAP values
+- [ ] **Smart Suggestions** - Auto-recommend improvements
 
----
+### Phase 3 (Month 2)
+- [ ] **CLI Interface** - `xac-pro analyze notebook.ipynb`
+- [ ] **Jupyter Magic** - `%%xac` magic command
+- [ ] **Web Dashboard** - Streamlit interface
+- [ ] **REST API** - FastAPI endpoints
 
-## 📚 References & Inspiration
+### Phase 4 (Future)
+- [ ] Deep learning support (PyTorch, TensorFlow)
+- [ ] Time series explainability
+- [ ] Fairness and bias detection
+- [ ] Automated report generation (PDF/HTML)
+- [ ] VS Code extension
+- [ ] Team collaboration features
 
-- **SHAP (SHapley Additive exPlanations):** Lundberg & Lee (2017)
-- **Interpretable ML:** Molnar, Christoph (2022)
-- **Responsible AI:** Microsoft RAI Guidelines
-- **Human-AI Interaction:** Amershi et al. (2019)
+See [XAC_PRO_ROADMAP.md](XAC_PRO_ROADMAP.md) for the complete vision.
 
 ---
 
 ## 🤝 Contributing
 
-While this is primarily a portfolio project, suggestions are welcome!
+This is my personal project, but I welcome contributions:
+- 🐛 Bug reports
+- 💡 Feature suggestions  
+- 📝 Documentation improvements
+- 🧪 Test cases
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit changes (`git commit -m 'Add improvement'`)
-4. Push to branch (`git push origin feature/improvement`)
-5. Open a Pull Request
+**How to contribute:**
+1. Open an issue describing the improvement
+2. Fork the repo
+3. Create a feature branch
+4. Submit a PR with tests and docs
+
+---
+
+## 📚 Learn More
+
+### Documentation
+- [XAC_PRO_ROADMAP.md](XAC_PRO_ROADMAP.md) - Complete vision and implementation plan
+- [examples/](examples/) - Sample inputs and outputs
+- [notebooks/](notebooks/) - Interactive demos
+
+### Technical Details
+- **No Paid APIs:** Everything runs locally
+- **SHAP Integration:** Theoretically sound feature attribution
+- **Pattern-Based Intent:** Deterministic, not probabilistic
+- **JSON Knowledge Base:** Human-readable, easily extensible
+- **Multi-Level Explanations:** Beginner/Expert/Business contexts
+
+---
+
+## 👤 About Me
+
+**Stephen Muema**  
+ML Engineer | Data Science Student | Builder of Tools
+
+I'm passionate about making ML more interpretable and accessible. This project showcases my skills in:
+- 🧠 ML Explainability (SHAP, feature importance, model interpretation)
+- 🏗️ Software Architecture (clean code, SOLID principles, testing)
+- 🤖 AI Ethics (safety guardrails, bias detection, transparency)
+- 📊 Data Science (scikit-learn, XGBoost, pandas, numpy)
+- 💬 Communication (technical writing, teaching, documentation)
+
+**Let's connect:**
+- 📧 Email: musyokas753@gmail.com
+- 💼 LinkedIn: [stephen-muema-617339359](https://www.linkedin.com/in/stephen-muema-617339359)
+- 🌐 Portfolio: [stephenmueama.com](https://stephenmueama.com)
+- 📍 Location: Kiambu, Kenya
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - See [LICENSE](LICENSE) for details.
+
+TL;DR: Use it, modify it, build on it. Just give credit.
 
 ---
 
-## 💬 Contact & Support
+## 🌟 Show Your Support
 
-**Muema Stephen**
+If XAC helped you understand your models better, or saved you time Googling ML concepts:
 
-- 📧 Email: musyokas753@gmail.com
-- 💼 LinkedIn: [stephen-muema-617339359](https://www.linkedin.com/in/stephen-muema-617339359)
-- 🌐 Portfolio: [stephenmueama.com](https://stephenmueama.com)
+⭐ **Star this repo**  
+🐦 **Share it on Twitter**  
+💬 **Tell your ML friends**  
+🔗 **Link it in your projects**
 
-For questions, feedback, or collaboration opportunities, feel free to reach out!
-
----
-
-## 🌟 Acknowledgments
-
-This project demonstrates:
-
-- **ML Interpretability:** SHAP, feature importance, confidence estimation
-- **Software Engineering:** Clean architecture, SOLID principles, type safety
-- **Ethical AI:** Safety guardrails, transparency, limitations
-- **Production Thinking:** Logging, error handling, testing readiness
-- **Communication:** Documentation, examples, professional presentation
-
-Built as a portfolio piece showcasing **senior-level data science and ML engineering skills**.
+Your support means a lot and motivates me to keep building cool ML tools.
 
 ---
 
-**⭐ If you found this project useful, please consider starring the repository!**
+## 🙏 Acknowledgments
+
+**Inspiration:**
+- SHAP library by Scott Lundberg
+- Interpretable ML book by Christoph Molnar
+- Microsoft's Responsible AI guidelines
+- Every ML engineer who's been frustrated by black box models
+
+**Tech Stack:**
+- Python 3.12+
+- scikit-learn (model integration)
+- SHAP (feature attribution)
+- NumPy (numerical computing)
+- JSON (knowledge storage)
 
 ---
 
-*Last updated: January 13, 2026*
+**Built with ❤️ and lots of ☕ by Stephen Muema**
+
+*Making ML interpretable, one explanation at a time.*
+
+---
+
+*Last updated: January 14, 2026*
