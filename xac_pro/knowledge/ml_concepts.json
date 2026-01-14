@@ -1,0 +1,289 @@
+{
+  "concepts": {
+    "overfitting": {
+      "name": "Overfitting",
+      "category": "model_behavior",
+      "beginner_explanation": "When your model memorizes the training data instead of learning patterns. It's like a student who memorizes answers instead of understanding concepts - they'll fail on new questions.",
+      "expert_explanation": "A model exhibits high variance when it captures noise in the training data, resulting in excellent training performance but poor generalization to unseen data. Formally, the model complexity exceeds the optimal point on the bias-variance tradeoff curve.",
+      "business_explanation": "The model performs great on historical data (95% accuracy) but fails on new data (60% accuracy). This means it can't be trusted in production.",
+      "symptoms": [
+        "Training accuracy >> Test accuracy",
+        "Low training error, high validation error",
+        "Complex model with many parameters",
+        "Poor performance on new data"
+      ],
+      "solutions": [
+        "Regularization (L1/L2)",
+        "Cross-validation",
+        "More training data",
+        "Reduce model complexity",
+        "Early stopping",
+        "Dropout (for neural networks)"
+      ],
+      "related_concepts": ["underfitting", "bias_variance_tradeoff", "regularization", "cross_validation"]
+    },
+    
+    "underfitting": {
+      "name": "Underfitting",
+      "category": "model_behavior",
+      "beginner_explanation": "When your model is too simple to capture patterns in the data. Like using a straight line to fit a curved pattern - it just won't work well.",
+      "expert_explanation": "A model exhibits high bias when it makes strong assumptions about the data structure, resulting in poor performance on both training and test sets. The model lacks the capacity to capture the underlying patterns.",
+      "business_explanation": "The model performs poorly even on the data it was trained on (55% accuracy). It's too simplistic and misses important patterns.",
+      "symptoms": [
+        "Low training accuracy",
+        "Training error ≈ Test error (both high)",
+        "Simple model for complex problem",
+        "Poor performance everywhere"
+      ],
+      "solutions": [
+        "Use more complex model",
+        "Add more features",
+        "Feature engineering",
+        "Increase model capacity",
+        "Train longer",
+        "Remove regularization"
+      ],
+      "related_concepts": ["overfitting", "bias_variance_tradeoff", "model_complexity"]
+    },
+    
+    "bias_variance_tradeoff": {
+      "name": "Bias-Variance Tradeoff",
+      "category": "theory",
+      "beginner_explanation": "The balance between a model being too simple (bias) and too complex (variance). It's like Goldilocks - you need just the right amount of complexity.",
+      "expert_explanation": "Expected MSE = Bias² + Variance + Irreducible Error. Bias measures systematic prediction error, variance measures sensitivity to training data fluctuations. Optimal model complexity minimizes their sum.",
+      "business_explanation": "We need to find the sweet spot where the model is complex enough to be accurate but simple enough to work on new data.",
+      "mathematical_formula": "E[(y - ŷ)²] = Bias(ŷ)² + Var(ŷ) + σ²",
+      "related_concepts": ["overfitting", "underfitting", "cross_validation", "model_complexity"]
+    },
+    
+    "feature_importance": {
+      "name": "Feature Importance",
+      "category": "interpretability",
+      "beginner_explanation": "Shows which inputs matter most for predictions. Like ranking ingredients by how much they affect a recipe's taste.",
+      "expert_explanation": "Quantifies the contribution of each feature to model predictions. Methods include permutation importance, Gini importance (tree-based), and SHAP values (game-theoretic approach).",
+      "business_explanation": "Identifies which factors drive predictions, helping prioritize what to focus on and measure.",
+      "types": [
+        "Permutation Importance",
+        "Gini/MDI Importance",
+        "SHAP Values",
+        "Partial Dependence",
+        "LIME"
+      ],
+      "related_concepts": ["shap_values", "interpretability", "explainability"]
+    },
+    
+    "shap_values": {
+      "name": "SHAP Values",
+      "category": "interpretability",
+      "beginner_explanation": "A fair way to distribute credit among features. Like fairly splitting a restaurant bill based on what each person ordered.",
+      "expert_explanation": "SHapley Additive exPlanations: Game-theoretic approach to feature attribution satisfying consistency, local accuracy, and missingness. Φᵢ = Σ [|S|!(M-|S|-1)! / M!] * [fₛ∪{i}(xₛ∪{i}) - fₛ(xₛ)]",
+      "business_explanation": "Shows exactly how much each factor contributed to each prediction, in the same units as the prediction.",
+      "properties": [
+        "Additive: Sum of SHAP values = prediction - baseline",
+        "Consistent: Changing model to rely more on feature increases its SHAP value",
+        "Local accuracy: Explains individual predictions accurately"
+      ],
+      "mathematical_formula": "Φᵢ(f, x) = Σₛ⊆ₙ\\{ᵢ} |S|!(n-|S|-1)! / n! * [f(S∪{i}) - f(S)]",
+      "related_concepts": ["feature_importance", "interpretability", "shapley_values", "lime"]
+    },
+    
+    "class_imbalance": {
+      "name": "Class Imbalance",
+      "category": "data_quality",
+      "beginner_explanation": "When you have way more examples of one type than another. Like having 95 cat photos and 5 dog photos - the model will just guess 'cat' every time.",
+      "expert_explanation": "Skewed class distribution in training data causes models to be biased toward majority class, optimizing for overall accuracy at the expense of minority class performance.",
+      "business_explanation": "When rare events (fraud, defects, churn) are much less common than normal cases, the model ignores them, which is often what we care most about.",
+      "symptoms": [
+        "High accuracy but useless predictions",
+        "Majority class precision/recall high, minority low",
+        "Model predicts majority class for everything",
+        "Confusion matrix shows zero predictions for minority class"
+      ],
+      "solutions": [
+        "Use class_weight='balanced'",
+        "SMOTE (synthetic oversampling)",
+        "Undersampling majority class",
+        "Use appropriate metrics (F1, AUC-ROC, not accuracy)",
+        "Ensemble methods with balanced samples",
+        "Anomaly detection approaches"
+      ],
+      "metrics_to_use": ["f1_score", "precision_recall", "auc_roc", "confusion_matrix"],
+      "metrics_to_avoid": ["accuracy"],
+      "related_concepts": ["smote", "precision_recall", "f1_score", "sampling_techniques"]
+    },
+    
+    "cross_validation": {
+      "name": "Cross-Validation",
+      "category": "evaluation",
+      "beginner_explanation": "Testing your model multiple times on different data splits to get a reliable estimate of performance. Like taking multiple practice tests instead of just one.",
+      "expert_explanation": "K-fold CV partitions data into k subsets, trains on k-1 folds and validates on the remaining fold, repeating k times. Provides unbiased performance estimate and reduces variance.",
+      "business_explanation": "Makes sure our accuracy estimate is reliable by testing the model on multiple different samples of data.",
+      "types": [
+        "K-Fold CV",
+        "Stratified K-Fold",
+        "Leave-One-Out CV",
+        "Time Series CV",
+        "Group K-Fold"
+      ],
+      "best_practices": [
+        "Use stratified for classification",
+        "Use time-based for time series",
+        "Typical k=5 or k=10",
+        "Don't tune hyperparameters on test set"
+      ],
+      "related_concepts": ["train_test_split", "overfitting", "hyperparameter_tuning"]
+    },
+    
+    "regularization": {
+      "name": "Regularization",
+      "category": "technique",
+      "beginner_explanation": "Adding a penalty for complexity to prevent overfitting. Like telling a story - too much detail bores people, so you focus on what matters.",
+      "expert_explanation": "Adds penalty term to loss function to constrain model complexity. L1 (Lasso) induces sparsity via absolute value penalty, L2 (Ridge) shrinks coefficients via squared penalty.",
+      "business_explanation": "Keeps the model simple and focused on important patterns, preventing it from chasing noise.",
+      "types": [
+        "L1 (Lasso): Produces sparse models, feature selection",
+        "L2 (Ridge): Shrinks all coefficients, better for multicollinearity",
+        "Elastic Net: Combines L1 and L2",
+        "Dropout: For neural networks"
+      ],
+      "mathematical_formulas": {
+        "L1": "Loss + λ * Σ|wᵢ|",
+        "L2": "Loss + λ * Σwᵢ²",
+        "Elastic Net": "Loss + λ₁*Σ|wᵢ| + λ₂*Σwᵢ²"
+      },
+      "related_concepts": ["overfitting", "feature_selection", "model_complexity"]
+    },
+    
+    "confusion_matrix": {
+      "name": "Confusion Matrix",
+      "category": "metrics",
+      "beginner_explanation": "A table showing what the model predicted vs what was actually true. Helps you see exactly where mistakes are happening.",
+      "expert_explanation": "Matrix C where C[i,j] represents count of samples with true label i predicted as label j. Diagonal elements are correct predictions, off-diagonal are errors.",
+      "business_explanation": "Shows prediction accuracy broken down by category, revealing which types of errors occur and how often.",
+      "components": {
+        "True Positive (TP)": "Correctly predicted positive",
+        "True Negative (TN)": "Correctly predicted negative",
+        "False Positive (FP)": "Incorrectly predicted positive (Type I error)",
+        "False Negative (FN)": "Incorrectly predicted negative (Type II error)"
+      },
+      "interpretation": [
+        "Diagonal = correct predictions",
+        "Row sum = actual count for that class",
+        "Column sum = predicted count for that class",
+        "Off-diagonal = confusion between classes"
+      ],
+      "derived_metrics": ["accuracy", "precision", "recall", "f1_score"],
+      "related_concepts": ["precision", "recall", "accuracy", "classification_metrics"]
+    },
+    
+    "precision_recall": {
+      "name": "Precision and Recall",
+      "category": "metrics",
+      "beginner_explanation": "Precision: Of what you predicted as positive, how many were actually positive? Recall: Of all actual positives, how many did you find? It's a quality vs quantity tradeoff.",
+      "expert_explanation": "Precision = TP/(TP+FP) measures positive predictive value. Recall = TP/(TP+FN) measures sensitivity. They're inversely related via decision threshold.",
+      "business_explanation": "Precision = when model says 'yes', how often is it right? Recall = of all real 'yes' cases, what % did we catch?",
+      "mathematical_formulas": {
+        "Precision": "TP / (TP + FP)",
+        "Recall": "TP / (TP + FN)",
+        "F1-Score": "2 * (Precision * Recall) / (Precision + Recall)"
+      },
+      "when_to_prioritize": {
+        "Precision": ["Spam detection (don't block real emails)", "Medical diagnosis (don't scare healthy patients)", "Fraud detection (don't freeze legitimate transactions)"],
+        "Recall": ["Cancer screening (don't miss real cases)", "Security threats (catch all attacks)", "Search engines (show all relevant results)"]
+      },
+      "related_concepts": ["confusion_matrix", "f1_score", "roc_auc", "classification_metrics"]
+    },
+    
+    "accuracy_paradox": {
+      "name": "Accuracy Paradox",
+      "category": "pitfalls",
+      "beginner_explanation": "When high accuracy is misleading. If 99% of cases are normal, predicting 'normal' every time gives 99% accuracy but is useless.",
+      "expert_explanation": "In imbalanced datasets, accuracy can be high while model is non-informative. A model predicting majority class achieves high accuracy despite zero predictive power for minority class.",
+      "business_explanation": "A 95% accurate fraud detector that never catches fraud is worthless. Accuracy alone doesn't tell the full story.",
+      "example": "Dataset: 95 non-fraud, 5 fraud. Model always predicts non-fraud. Accuracy = 95%, but catches 0% of fraud.",
+      "better_metrics": ["f1_score", "precision_recall", "auc_roc", "confusion_matrix", "balanced_accuracy"],
+      "related_concepts": ["class_imbalance", "precision_recall", "evaluation_metrics"]
+    },
+    
+    "smote": {
+      "name": "SMOTE (Synthetic Minority Oversampling Technique)",
+      "category": "technique",
+      "beginner_explanation": "Creates fake examples of the rare class by mixing existing ones. Like creating new cat photos by blending features from existing cat photos.",
+      "expert_explanation": "Generates synthetic samples in feature space by interpolating between existing minority class samples and their k-nearest neighbors: x_new = x_i + λ * (x_neighbor - x_i), λ ∈ [0,1]",
+      "business_explanation": "Artificially creates more examples of rare events so the model learns to detect them, without just copying existing examples.",
+      "algorithm": [
+        "For each minority sample",
+        "Find k nearest minority neighbors",
+        "Randomly select one neighbor",
+        "Create synthetic sample between original and neighbor",
+        "Repeat until classes balanced"
+      ],
+      "pros": ["Reduces overfitting vs simple oversampling", "Creates diverse synthetic samples", "Effective for imbalanced data"],
+      "cons": ["Can create unrealistic samples", "Doesn't work well with outliers", "May introduce noise"],
+      "related_concepts": ["class_imbalance", "oversampling", "sampling_techniques"]
+    },
+    
+    "learning_rate": {
+      "name": "Learning Rate",
+      "category": "hyperparameter",
+      "beginner_explanation": "How big of steps the model takes when learning. Too big and it overshoots the answer, too small and it takes forever.",
+      "expert_explanation": "Scaling factor for gradient descent updates: θ_new = θ_old - α * ∇L(θ). Controls convergence speed vs stability. Typical range: [1e-5, 1e-1]",
+      "business_explanation": "Determines how quickly the model learns. Finding the right value is crucial for good performance.",
+      "typical_values": {
+        "Adam optimizer": "1e-3 to 1e-4",
+        "SGD": "1e-2 to 1e-1",
+        "Fine-tuning": "1e-5 to 1e-4"
+      },
+      "symptoms": {
+        "Too high": ["Loss diverges", "Training unstable", "Exploding gradients"],
+        "Too low": ["Slow convergence", "Stuck in local minima", "Training takes forever"]
+      },
+      "techniques": ["Learning rate scheduling", "Adaptive learning rates (Adam, RMSprop)", "Cyclical learning rates", "Warmup strategies"],
+      "related_concepts": ["gradient_descent", "optimization", "hyperparameter_tuning"]
+    },
+    
+    "gradient_descent": {
+      "name": "Gradient Descent",
+      "category": "algorithm",
+      "beginner_explanation": "Finding the best answer by repeatedly taking steps downhill. Like finding the bottom of a valley by always walking in the steepest downward direction.",
+      "expert_explanation": "Iterative optimization algorithm that updates parameters in direction of negative gradient: θ := θ - α∇J(θ). Variants include batch, mini-batch, and stochastic GD.",
+      "business_explanation": "The core algorithm that makes machine learning work - it finds the best model by repeatedly improving it step by step.",
+      "algorithm": [
+        "Initialize parameters randomly",
+        "Compute loss on data",
+        "Calculate gradients (derivatives)",
+        "Update parameters: θ - α*∇L",
+        "Repeat until convergence"
+      ],
+      "variants": {
+        "Batch GD": "Uses all data, slow but stable",
+        "Mini-batch GD": "Uses batches, good balance",
+        "Stochastic GD": "Uses single samples, fast but noisy"
+      },
+      "related_concepts": ["learning_rate", "optimization", "backpropagation", "convergence"]
+    },
+    
+    "ensemble_methods": {
+      "name": "Ensemble Methods",
+      "category": "technique",
+      "beginner_explanation": "Combining multiple models to make better predictions. Like asking several experts and taking their average opinion.",
+      "expert_explanation": "Meta-algorithms that combine multiple weak learners to create a strong learner. Reduces variance (bagging), bias (boosting), or improves predictions (stacking).",
+      "business_explanation": "Using multiple models together often beats using one model alone, similar to how teams outperform individuals.",
+      "types": {
+        "Bagging": "Train models independently, average predictions (Random Forest)",
+        "Boosting": "Train models sequentially, focus on errors (XGBoost, AdaBoost)",
+        "Stacking": "Use meta-model to combine base model predictions"
+      },
+      "examples": ["Random Forest", "XGBoost", "LightGBM", "Voting Classifier", "AdaBoost"],
+      "related_concepts": ["random_forest", "xgboost", "bagging", "boosting"]
+    }
+  },
+  
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-01-14",
+    "total_concepts": 15,
+    "author": "Stephen Muema",
+    "description": "Core ML concepts knowledge base for XAC Pro"
+  }
+}

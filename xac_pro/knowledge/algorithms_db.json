@@ -1,0 +1,444 @@
+{
+  "algorithms": {
+    "logistic_regression": {
+      "name": "Logistic Regression",
+      "category": "classification",
+      "type": "linear",
+      "beginner_explanation": "Despite the name, it's for classification not regression. It predicts probabilities using a S-shaped curve. Simple, fast, and easy to interpret.",
+      "expert_explanation": "Linear model with sigmoid activation: P(y=1|x) = 1/(1+e^(-w·x)). Trained via maximum likelihood estimation. Forms linear decision boundary in feature space.",
+      "business_explanation": "Fast, interpretable classifier that gives probability estimates. Good baseline for binary classification.",
+      "strengths": [
+        "Fast training and prediction",
+        "Interpretable coefficients",
+        "Outputs calibrated probabilities",
+        "Works well with sparse data",
+        "Low memory footprint"
+      ],
+      "weaknesses": [
+        "Assumes linear decision boundary",
+        "Can underfit complex patterns",
+        "Sensitive to outliers",
+        "Requires feature scaling",
+        "Struggles with feature interactions"
+      ],
+      "use_cases": ["Spam detection", "Credit scoring", "Medical diagnosis", "Click prediction"],
+      "hyperparameters": {
+        "C": "Regularization strength (inverse)",
+        "penalty": "l1, l2, elasticnet",
+        "solver": "liblinear, lbfgs, saga",
+        "max_iter": "Maximum iterations"
+      },
+      "sklearn_class": "LogisticRegression",
+      "related_algorithms": ["linear_svm", "naive_bayes", "perceptron"]
+    },
+    
+    "random_forest": {
+      "name": "Random Forest",
+      "category": "classification_regression",
+      "type": "ensemble",
+      "beginner_explanation": "Grows many decision trees and averages their predictions. Each tree sees different data and features. Usually works great out-of-the-box.",
+      "expert_explanation": "Ensemble of decision trees trained on bootstrap samples with random feature subsets at each split. Combines bagging with feature randomness to reduce variance.",
+      "business_explanation": "Robust, accurate model that handles complex patterns. Often the first choice for tabular data.",
+      "strengths": [
+        "Excellent out-of-box performance",
+        "Handles non-linear patterns",
+        "Feature importance built-in",
+        "Robust to outliers",
+        "No feature scaling needed",
+        "Handles missing values (sklearn doesn't)",
+        "Parallel training"
+      ],
+      "weaknesses": [
+        "Large memory footprint",
+        "Slower prediction than linear models",
+        "Black box (less interpretable than single tree)",
+        "Can overfit on noisy data",
+        "Biased toward features with more levels"
+      ],
+      "use_cases": ["General classification/regression", "Feature selection", "Outlier detection", "Customer churn"],
+      "hyperparameters": {
+        "n_estimators": "Number of trees (100-1000)",
+        "max_depth": "Tree depth limit",
+        "min_samples_split": "Min samples to split",
+        "min_samples_leaf": "Min samples in leaf",
+        "max_features": "Features per split (sqrt, log2)",
+        "bootstrap": "Use bootstrap sampling"
+      },
+      "sklearn_class": "RandomForestClassifier, RandomForestRegressor",
+      "related_algorithms": ["xgboost", "decision_tree", "extra_trees"]
+    },
+    
+    "xgboost": {
+      "name": "XGBoost",
+      "category": "classification_regression",
+      "type": "ensemble",
+      "beginner_explanation": "Like Random Forest but builds trees sequentially, each fixing the previous one's mistakes. Usually the most accurate for tabular data.",
+      "expert_explanation": "Gradient boosting framework using regularized objective: Obj = Σ L(yi, ŷi) + Σ Ω(fk). Adds trees to minimize loss + complexity. Uses Newton boosting for optimization.",
+      "business_explanation": "State-of-art model for structured data. Often wins Kaggle competitions. Worth the extra tuning effort for production.",
+      "strengths": [
+        "Highest accuracy on tabular data",
+        "Built-in regularization",
+        "Handles missing values natively",
+        "Fast training (parallelized)",
+        "Feature importance",
+        "Monotonic constraints",
+        "Early stopping built-in"
+      ],
+      "weaknesses": [
+        "Many hyperparameters to tune",
+        "Can overfit if not tuned",
+        "Longer training than Random Forest",
+        "Requires careful preprocessing",
+        "Less interpretable"
+      ],
+      "use_cases": ["Competitions", "High-stakes predictions", "Fraud detection", "Ranking systems"],
+      "hyperparameters": {
+        "n_estimators": "Number of boosting rounds",
+        "max_depth": "Tree depth (3-10)",
+        "learning_rate": "Shrinkage (0.01-0.3)",
+        "subsample": "Row sampling (0.6-1.0)",
+        "colsample_bytree": "Column sampling",
+        "gamma": "Min loss reduction to split",
+        "reg_alpha": "L1 regularization",
+        "reg_lambda": "L2 regularization"
+      },
+      "tuning_strategy": [
+        "Start with learning_rate=0.1, n_estimators=100",
+        "Tune max_depth, min_child_weight",
+        "Tune subsample, colsample_bytree",
+        "Tune regularization (gamma, alpha, lambda)",
+        "Lower learning_rate, increase n_estimators"
+      ],
+      "sklearn_class": "xgboost.XGBClassifier, xgboost.XGBRegressor",
+      "related_algorithms": ["lightgbm", "catboost", "gradient_boosting"]
+    },
+    
+    "lightgbm": {
+      "name": "LightGBM",
+      "category": "classification_regression",
+      "type": "ensemble",
+      "beginner_explanation": "Microsoft's fast version of XGBoost. Especially good for large datasets and high-dimensional data.",
+      "expert_explanation": "Gradient boosting using leaf-wise tree growth (vs level-wise). Uses GOSS (Gradient-based One-Side Sampling) and EFB (Exclusive Feature Bundling) for efficiency.",
+      "business_explanation": "Faster than XGBoost with similar accuracy. Best choice for large datasets (>10K rows).",
+      "strengths": [
+        "Very fast training",
+        "Memory efficient",
+        "Handles large datasets",
+        "Categorical features natively",
+        "Lower memory usage",
+        "Supports GPU"
+      ],
+      "weaknesses": [
+        "Can overfit on small data",
+        "Sensitive to hyperparameters",
+        "Less mature than XGBoost",
+        "Leaf-wise growth can overfit"
+      ],
+      "use_cases": ["Large-scale ML", "Real-time predictions", "High-dimensional data", "Click-through rate"],
+      "hyperparameters": {
+        "n_estimators": "Number of trees",
+        "num_leaves": "Max leaves (31 default)",
+        "learning_rate": "Shrinkage rate",
+        "max_depth": "Tree depth limit (-1=no limit)",
+        "min_data_in_leaf": "Min samples in leaf",
+        "feature_fraction": "Feature sampling",
+        "bagging_fraction": "Row sampling"
+      },
+      "sklearn_class": "lightgbm.LGBMClassifier, lightgbm.LGBMRegressor",
+      "related_algorithms": ["xgboost", "catboost", "gradient_boosting"]
+    },
+    
+    "svm": {
+      "name": "Support Vector Machine",
+      "category": "classification_regression",
+      "type": "kernel",
+      "beginner_explanation": "Finds the best line (or curve) to separate classes with maximum margin. Can handle non-linear patterns using kernel trick.",
+      "expert_explanation": "Finds optimal hyperplane maximizing margin between classes: min ||w||² subject to yi(w·xi + b) ≥ 1. Kernel trick enables non-linear boundaries: K(x,y) = φ(x)·φ(y).",
+      "business_explanation": "Powerful classifier especially for high-dimensional data and when classes are well-separated.",
+      "strengths": [
+        "Effective in high dimensions",
+        "Memory efficient (only uses support vectors)",
+        "Versatile (different kernels)",
+        "Works well with clear margin",
+        "Robust to overfitting in high dimensions"
+      ],
+      "weaknesses": [
+        "Slow on large datasets",
+        "Requires feature scaling",
+        "No probability estimates by default",
+        "Sensitive to kernel choice",
+        "Hard to interpret"
+      ],
+      "use_cases": ["Text classification", "Image recognition", "Bioinformatics", "Handwriting recognition"],
+      "hyperparameters": {
+        "C": "Regularization parameter",
+        "kernel": "rbf, linear, poly, sigmoid",
+        "gamma": "Kernel coefficient (for rbf, poly, sigmoid)",
+        "degree": "Polynomial degree (for poly)"
+      },
+      "sklearn_class": "SVC, SVR",
+      "related_algorithms": ["logistic_regression", "kernel_ridge", "mlp"]
+    },
+    
+    "naive_bayes": {
+      "name": "Naive Bayes",
+      "category": "classification",
+      "type": "probabilistic",
+      "beginner_explanation": "Assumes features are independent (naive assumption) and uses Bayes theorem. Surprisingly effective for text classification despite unrealistic assumption.",
+      "expert_explanation": "Applies Bayes theorem with naive independence assumption: P(y|x) ∝ P(y)Π P(xi|y). Variants: Gaussian (continuous), Multinomial (counts), Bernoulli (binary).",
+      "business_explanation": "Fast, simple classifier that works well for text and when training data is limited.",
+      "strengths": [
+        "Very fast training and prediction",
+        "Works with small datasets",
+        "Handles high dimensions well",
+        "Good for text classification",
+        "Outputs probabilities",
+        "Handles missing data naturally"
+      ],
+      "weaknesses": [
+        "Naive independence assumption",
+        "Can be outperformed by discriminative models",
+        "Zero-frequency problem",
+        "Probability estimates not always reliable"
+      ],
+      "use_cases": ["Spam filtering", "Sentiment analysis", "Document classification", "Real-time prediction"],
+      "variants": {
+        "GaussianNB": "For continuous features (assumes normal distribution)",
+        "MultinomialNB": "For count features (word counts, TF-IDF)",
+        "BernoulliNB": "For binary features"
+      },
+      "sklearn_class": "GaussianNB, MultinomialNB, BernoulliNB",
+      "related_algorithms": ["logistic_regression", "knn", "decision_tree"]
+    },
+    
+    "decision_tree": {
+      "name": "Decision Tree",
+      "category": "classification_regression",
+      "type": "tree",
+      "beginner_explanation": "Makes decisions by asking yes/no questions about features. Easy to understand and visualize, but can overfit.",
+      "expert_explanation": "Recursively partitions feature space using greedy splits that maximize information gain (ID3, C4.5) or minimize Gini impurity (CART). Stopping criteria prevent overfitting.",
+      "business_explanation": "Highly interpretable model that mimics human decision-making. Good for understanding patterns, but use Random Forest for predictions.",
+      "strengths": [
+        "Easy to understand and visualize",
+        "No feature scaling needed",
+        "Handles non-linear patterns",
+        "Handles numerical and categorical",
+        "Feature importance built-in",
+        "Fast prediction"
+      ],
+      "weaknesses": [
+        "Prone to overfitting",
+        "High variance (unstable)",
+        "Biased toward features with more levels",
+        "Can create biased trees if classes imbalanced",
+        "Greedy algorithm (not globally optimal)"
+      ],
+      "use_cases": ["Exploratory analysis", "Feature engineering", "Interpretable rules", "Baseline model"],
+      "hyperparameters": {
+        "max_depth": "Maximum tree depth",
+        "min_samples_split": "Min samples to split",
+        "min_samples_leaf": "Min samples in leaf",
+        "max_features": "Features to consider for split",
+        "criterion": "gini or entropy"
+      },
+      "sklearn_class": "DecisionTreeClassifier, DecisionTreeRegressor",
+      "related_algorithms": ["random_forest", "xgboost", "extra_trees"]
+    },
+    
+    "knn": {
+      "name": "K-Nearest Neighbors",
+      "category": "classification_regression",
+      "type": "instance_based",
+      "beginner_explanation": "Looks at the K closest training examples and takes a vote. Simple but slow for large datasets.",
+      "expert_explanation": "Non-parametric, instance-based learner. Prediction: ŷ = mode(yi for xi in k-nearest(x)) for classification, or mean for regression. Distance typically Euclidean or Manhattan.",
+      "business_explanation": "Simple baseline that can work surprisingly well. Best for smaller datasets where interpretability matters.",
+      "strengths": [
+        "Simple to understand",
+        "No training phase",
+        "Naturally handles multi-class",
+        "Can learn complex decision boundaries",
+        "No assumptions about data distribution"
+      ],
+      "weaknesses": [
+        "Slow prediction on large data",
+        "Requires feature scaling",
+        "Sensitive to irrelevant features",
+        "Curse of dimensionality",
+        "Stores all training data"
+      ],
+      "use_cases": ["Recommendation systems", "Pattern recognition", "Anomaly detection", "Missing value imputation"],
+      "hyperparameters": {
+        "n_neighbors": "Number of neighbors (5-10 typical)",
+        "weights": "uniform or distance",
+        "metric": "Distance metric (euclidean, manhattan, minkowski)",
+        "algorithm": "ball_tree, kd_tree, brute"
+      },
+      "sklearn_class": "KNeighborsClassifier, KNeighborsRegressor",
+      "related_algorithms": ["radius_neighbors", "nearest_centroid", "local_outlier_factor"]
+    },
+    
+    "neural_network": {
+      "name": "Neural Network (MLP)",
+      "category": "classification_regression",
+      "type": "deep_learning",
+      "beginner_explanation": "Inspired by brain neurons. Layers of connected nodes that learn to transform inputs to outputs. Powerful but needs lots of data and tuning.",
+      "expert_explanation": "Multi-layer perceptron with fully connected layers: h = activation(Wx + b). Trained via backpropagation and gradient descent. Universal function approximator.",
+      "business_explanation": "Most flexible model that can learn any pattern, but requires significant data and expertise to tune properly.",
+      "strengths": [
+        "Can learn complex non-linear patterns",
+        "Universal function approximator",
+        "Good for high-dimensional data",
+        "Transfer learning possible",
+        "Automatic feature learning"
+      ],
+      "weaknesses": [
+        "Requires large datasets",
+        "Many hyperparameters",
+        "Slow to train",
+        "Black box (not interpretable)",
+        "Prone to overfitting",
+        "Requires feature scaling",
+        "Sensitive to initialization"
+      ],
+      "use_cases": ["Image/speech recognition", "NLP", "Complex patterns", "When data is abundant"],
+      "hyperparameters": {
+        "hidden_layer_sizes": "Architecture (100,) or (100,50)",
+        "activation": "relu, tanh, logistic",
+        "solver": "adam, sgd, lbfgs",
+        "alpha": "L2 regularization",
+        "learning_rate_init": "Initial learning rate",
+        "max_iter": "Training iterations"
+      },
+      "sklearn_class": "MLPClassifier, MLPRegressor",
+      "related_algorithms": ["deep_learning", "cnn", "rnn", "transformer"]
+    },
+    
+    "linear_regression": {
+      "name": "Linear Regression",
+      "category": "regression",
+      "type": "linear",
+      "beginner_explanation": "Fits a straight line (or plane) to predict continuous values. The simplest regression model.",
+      "expert_explanation": "Minimizes squared error: ŷ = Xw, where w = (X^TX)^(-1)X^Ty (normal equation) or via gradient descent. Assumes linear relationship between features and target.",
+      "business_explanation": "Fast, interpretable model for predicting numbers. Good baseline and when relationships are truly linear.",
+      "strengths": [
+        "Fast training and prediction",
+        "Highly interpretable coefficients",
+        "No hyperparameters (or minimal)",
+        "Stable and well-understood",
+        "Works with small data"
+      ],
+      "weaknesses": [
+        "Assumes linear relationship",
+        "Sensitive to outliers",
+        "Multicollinearity issues",
+        "Can't capture non-linear patterns",
+        "Requires feature engineering"
+      ],
+      "use_cases": ["Price prediction", "Trend analysis", "Baseline model", "When interpretability critical"],
+      "variants": {
+        "Ridge Regression": "L2 regularization",
+        "Lasso Regression": "L1 regularization (feature selection)",
+        "Elastic Net": "L1 + L2 regularization"
+      },
+      "sklearn_class": "LinearRegression, Ridge, Lasso, ElasticNet",
+      "related_algorithms": ["polynomial_features", "ridge", "lasso"]
+    },
+    
+    "kmeans": {
+      "name": "K-Means Clustering",
+      "category": "clustering",
+      "type": "unsupervised",
+      "beginner_explanation": "Groups similar data points into K clusters. Finds cluster centers by iteratively assigning points and updating centers.",
+      "expert_explanation": "Partitions data into K clusters minimizing within-cluster variance: argmin Σ Σ ||xi - μj||². Solved via EM algorithm (E-step: assign, M-step: update centroids).",
+      "business_explanation": "Automatically discovers groups in unlabeled data. Use for customer segmentation, anomaly detection, data compression.",
+      "strengths": [
+        "Simple and fast",
+        "Scales to large data",
+        "Easy to interpret",
+        "Works well with spherical clusters",
+        "Guaranteed convergence"
+      ],
+      "weaknesses": [
+        "Must specify K",
+        "Assumes spherical clusters",
+        "Sensitive to initialization",
+        "Sensitive to outliers",
+        "Struggles with different sized/density clusters"
+      ],
+      "use_cases": ["Customer segmentation", "Image compression", "Anomaly detection", "Feature engineering"],
+      "hyperparameters": {
+        "n_clusters": "Number of clusters",
+        "init": "k-means++ or random",
+        "n_init": "Number of initializations",
+        "max_iter": "Max iterations"
+      },
+      "choosing_k": ["Elbow method", "Silhouette score", "Domain knowledge", "Gap statistic"],
+      "sklearn_class": "KMeans",
+      "related_algorithms": ["dbscan", "hierarchical_clustering", "gmm"]
+    },
+    
+    "pca": {
+      "name": "Principal Component Analysis",
+      "category": "dimensionality_reduction",
+      "type": "unsupervised",
+      "beginner_explanation": "Finds the most important directions in your data. Reduces dimensions while keeping most information.",
+      "expert_explanation": "Finds orthogonal directions of maximum variance via eigendecomposition of covariance matrix: Σv = λv. Projects data onto top k eigenvectors.",
+      "business_explanation": "Reduces data dimensions for visualization, noise reduction, or speeding up models while retaining most information.",
+      "strengths": [
+        "Reduces dimensionality",
+        "Removes correlations",
+        "Noise reduction",
+        "Helps with visualization",
+        "Speeds up learning",
+        "No hyperparameters (just n_components)"
+      ],
+      "weaknesses": [
+        "Linear transformation only",
+        "Hard to interpret components",
+        "Assumes importance = variance",
+        "Sensitive to scaling",
+        "Information loss"
+      ],
+      "use_cases": ["Visualization", "Noise reduction", "Feature extraction", "Speeding up models"],
+      "hyperparameters": {
+        "n_components": "Number of components to keep",
+        "whiten": "Normalize components"
+      },
+      "sklearn_class": "PCA",
+      "related_algorithms": ["tsne", "umap", "factor_analysis", "nmf"]
+    }
+  },
+  
+  "algorithm_selection_guide": {
+    "classification": {
+      "small_data_linear": ["logistic_regression", "naive_bayes"],
+      "small_data_nonlinear": ["svm", "knn", "decision_tree"],
+      "large_data": ["logistic_regression", "random_forest", "xgboost", "lightgbm"],
+      "high_interpretability": ["logistic_regression", "decision_tree", "naive_bayes"],
+      "high_accuracy": ["xgboost", "lightgbm", "random_forest", "neural_network"],
+      "real_time": ["logistic_regression", "naive_bayes", "knn"],
+      "text_data": ["naive_bayes", "logistic_regression", "svm"]
+    },
+    "regression": {
+      "linear_relationship": ["linear_regression", "ridge", "lasso"],
+      "nonlinear_relationship": ["random_forest", "xgboost", "neural_network"],
+      "high_interpretability": ["linear_regression", "decision_tree"],
+      "high_accuracy": ["xgboost", "lightgbm", "random_forest"],
+      "robust_to_outliers": ["random_forest", "xgboost", "huber_regression"]
+    },
+    "clustering": {
+      "spherical_clusters": ["kmeans"],
+      "arbitrary_shapes": ["dbscan", "hierarchical"],
+      "soft_clustering": ["gmm"],
+      "large_data": ["kmeans", "mini_batch_kmeans"]
+    }
+  },
+  
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-01-14",
+    "total_algorithms": 12,
+    "author": "Stephen Muema",
+    "description": "ML algorithms encyclopedia for XAC Pro"
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "metrics": {
+    "accuracy": {
+      "name": "Accuracy",
+      "category": "classification",
+      "formula": "(TP + TN) / (TP + TN + FP + FN)",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Percentage of correct predictions. Simple but can be misleading with imbalanced data.",
+      "expert_explanation": "Proportion of correct predictions among total instances. Optimal for balanced classes and equal misclassification costs. Problematic for imbalanced datasets due to accuracy paradox.",
+      "business_explanation": "How often the model is correct overall. Not reliable when rare events matter (fraud, disease).",
+      "when_to_use": [
+        "Balanced class distribution",
+        "All classes equally important",
+        "Equal misclassification costs",
+        "Overall performance sufficient"
+      ],
+      "when_not_to_use": [
+        "Imbalanced classes",
+        "One class more important",
+        "Cost-sensitive prediction",
+        "Rare event detection"
+      ],
+      "interpretation": {
+        "0.5": "Random guessing (binary)",
+        "0.7": "Okay",
+        "0.8": "Good",
+        "0.9": "Excellent (or suspicious if imbalanced)"
+      },
+      "pitfalls": ["Accuracy paradox in imbalanced data", "Ignores class-specific performance", "Hides false negatives/positives"],
+      "sklearn_function": "accuracy_score",
+      "related_metrics": ["balanced_accuracy", "precision", "recall", "f1_score"]
+    },
+    
+    "precision": {
+      "name": "Precision (Positive Predictive Value)",
+      "category": "classification",
+      "formula": "TP / (TP + FP)",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Of all positive predictions, how many were actually positive? Important when false positives are costly.",
+      "expert_explanation": "Proportion of true positives among predicted positives. Measures positive predictive value. Inversely related to recall via threshold adjustment.",
+      "business_explanation": "When model says 'yes', how often is it right? Critical for avoiding false alarms.",
+      "when_to_use": [
+        "False positives are costly",
+        "Want to trust positive predictions",
+        "Email spam detection",
+        "Medical diagnosis (avoid scaring healthy patients)"
+      ],
+      "real_world_examples": {
+        "email_spam": "Don't want to block legitimate emails",
+        "fraud_detection": "Don't want to freeze legitimate transactions",
+        "product_recommendations": "Don't want to annoy users with bad suggestions"
+      },
+      "interpretation": {
+        "0.5": "Half of positive predictions are wrong",
+        "0.7": "70% of positive predictions are correct",
+        "0.9": "90% of positive predictions are correct (high confidence)"
+      },
+      "tradeoff": "Increasing precision typically decreases recall",
+      "sklearn_function": "precision_score",
+      "related_metrics": ["recall", "f1_score", "precision_recall_curve", "average_precision"]
+    },
+    
+    "recall": {
+      "name": "Recall (Sensitivity, True Positive Rate)",
+      "category": "classification",
+      "formula": "TP / (TP + FN)",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Of all actual positives, how many did we find? Important when missing positives is costly.",
+      "expert_explanation": "Proportion of true positives among actual positives. Measures sensitivity to positive class. Key metric when false negatives are critical.",
+      "business_explanation": "What percentage of real 'yes' cases did we catch? Critical for not missing important events.",
+      "when_to_use": [
+        "False negatives are costly",
+        "Must catch all positives",
+        "Cancer screening",
+        "Fraud detection",
+        "Security threats"
+      ],
+      "real_world_examples": {
+        "cancer_screening": "Cannot miss real cancer cases",
+        "security": "Must detect all threats",
+        "search_engines": "Must show all relevant results",
+        "manufacturing": "Must catch all defects"
+      },
+      "interpretation": {
+        "0.5": "Missing half of actual positives",
+        "0.7": "Catching 70% of positives",
+        "0.9": "Catching 90% of positives (high coverage)"
+      },
+      "tradeoff": "Increasing recall typically decreases precision",
+      "sklearn_function": "recall_score",
+      "related_metrics": ["precision", "f1_score", "roc_auc", "sensitivity_specificity"]
+    },
+    
+    "f1_score": {
+      "name": "F1 Score",
+      "category": "classification",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Harmonic mean of precision and recall. Balances both metrics. Good for imbalanced data.",
+      "expert_explanation": "Harmonic mean of precision and recall, giving equal weight to both. Generalizes to Fβ score where β controls precision vs recall emphasis.",
+      "business_explanation": "Single score balancing 'when we say yes, are we right?' and 'do we catch all real yes cases?'",
+      "when_to_use": [
+        "Need balance between precision and recall",
+        "Imbalanced classes",
+        "Both false positives and false negatives matter",
+        "Single metric for optimization"
+      ],
+      "interpretation": {
+        "0.5": "Poor balance",
+        "0.7": "Okay balance",
+        "0.8": "Good balance",
+        "0.9": "Excellent balance"
+      },
+      "variants": {
+        "F0.5": "Weighs precision higher (β=0.5)",
+        "F1": "Equal weight to precision and recall (β=1)",
+        "F2": "Weighs recall higher (β=2)"
+      },
+      "pitfalls": ["Harmonic mean is sensitive to low values", "May hide class imbalance issues"],
+      "sklearn_function": "f1_score",
+      "related_metrics": ["precision", "recall", "fbeta_score", "balanced_accuracy"]
+    },
+    
+    "roc_auc": {
+      "name": "ROC AUC (Area Under ROC Curve)",
+      "category": "classification",
+      "formula": "Area under TPR vs FPR curve",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Measures how well model separates classes across all thresholds. 0.5 = random, 1.0 = perfect.",
+      "expert_explanation": "Area under Receiver Operating Characteristic curve (TPR vs FPR). Equivalent to probability that model ranks random positive higher than random negative. Threshold-independent metric.",
+      "business_explanation": "How well the model distinguishes between classes. Higher is better, 0.5 means useless.",
+      "when_to_use": [
+        "Want threshold-independent metric",
+        "Care about ranking quality",
+        "Comparing models",
+        "Imbalanced data (but see PR-AUC)"
+      ],
+      "interpretation": {
+        "0.5": "Random classifier (no discrimination)",
+        "0.7": "Fair discrimination",
+        "0.8": "Good discrimination",
+        "0.9": "Excellent discrimination",
+        "1.0": "Perfect discrimination"
+      },
+      "advantages": ["Threshold-independent", "Handles imbalanced data better than accuracy", "Good for model comparison"],
+      "disadvantages": ["Can be optimistic with imbalanced data", "Doesn't show precision-recall tradeoff", "Hard to interpret for non-experts"],
+      "sklearn_function": "roc_auc_score",
+      "related_metrics": ["precision_recall_auc", "roc_curve", "average_precision"]
+    },
+    
+    "pr_auc": {
+      "name": "Precision-Recall AUC",
+      "category": "classification",
+      "formula": "Area under Precision vs Recall curve",
+      "range": "[0, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Like ROC AUC but better for imbalanced data. Focuses on positive class performance.",
+      "expert_explanation": "Area under Precision-Recall curve. More informative than ROC-AUC for imbalanced datasets as it focuses on positive class performance.",
+      "business_explanation": "Better than ROC-AUC when positive class is rare (fraud, disease, defects).",
+      "when_to_use": [
+        "Highly imbalanced data",
+        "Positive class is rare",
+        "Care about positive class more",
+        "Fraud/anomaly detection"
+      ],
+      "interpretation": {
+        "Baseline": "Random: proportion of positives",
+        "0.7": "Good for imbalanced data",
+        "0.9": "Excellent"
+      },
+      "vs_roc_auc": "PR-AUC more pessimistic but realistic for imbalanced data. ROC-AUC can be over-optimistic.",
+      "sklearn_function": "average_precision_score",
+      "related_metrics": ["roc_auc", "precision", "recall", "precision_recall_curve"]
+    },
+    
+    "confusion_matrix": {
+      "name": "Confusion Matrix",
+      "category": "classification",
+      "description": "Matrix showing predicted vs actual classes",
+      "beginner_explanation": "Table showing correct and incorrect predictions for each class. Diagonal = correct, off-diagonal = mistakes.",
+      "expert_explanation": "Matrix C where C[i,j] = count of samples with true label i predicted as label j. Enables calculation of all classification metrics.",
+      "business_explanation": "Shows exactly where model makes mistakes. Essential for understanding model behavior.",
+      "components": {
+        "True Positive (TP)": "Correctly predicted positive",
+        "True Negative (TN)": "Correctly predicted negative",
+        "False Positive (FP)": "Type I error, false alarm",
+        "False Negative (FN)": "Type II error, miss"
+      },
+      "interpretation": [
+        "Diagonal values = correct predictions",
+        "Sum of row = actual count",
+        "Sum of column = predicted count",
+        "Off-diagonal = confusion between classes"
+      ],
+      "derived_metrics": ["accuracy", "precision", "recall", "f1_score", "specificity", "sensitivity"],
+      "sklearn_function": "confusion_matrix",
+      "related_metrics": ["classification_report", "precision_recall", "roc_auc"]
+    },
+    
+    "mse": {
+      "name": "Mean Squared Error",
+      "category": "regression",
+      "formula": "Σ(yi - ŷi)² / n",
+      "range": "[0, ∞)",
+      "best_value": 0.0,
+      "beginner_explanation": "Average squared difference between predictions and actual values. Penalizes large errors heavily.",
+      "expert_explanation": "Expected value of squared prediction error. Differentiable loss function commonly used for training. Sensitive to outliers due to squaring.",
+      "business_explanation": "Average prediction error squared. Large errors hurt more than small ones.",
+      "when_to_use": [
+        "Training regression models",
+        "Large errors more concerning",
+        "Comparable units needed",
+        "Outliers should be penalized"
+      ],
+      "interpretation": "Lower is better. Compare to baseline (mean prediction) MSE. Units are squared.",
+      "advantages": ["Differentiable (good for optimization)", "Penalizes large errors", "Well-studied"],
+      "disadvantages": ["Sensitive to outliers", "Units are squared (hard to interpret)", "Not robust"],
+      "sklearn_function": "mean_squared_error",
+      "related_metrics": ["rmse", "mae", "r2_score"]
+    },
+    
+    "rmse": {
+      "name": "Root Mean Squared Error",
+      "category": "regression",
+      "formula": "√(Σ(yi - ŷi)² / n)",
+      "range": "[0, ∞)",
+      "best_value": 0.0,
+      "beginner_explanation": "Square root of MSE. Same units as target variable, easier to interpret.",
+      "expert_explanation": "Square root of MSE, providing error metric in original units. Maintains sensitivity to outliers while improving interpretability.",
+      "business_explanation": "Average prediction error in same units as your target. Directly interpretable.",
+      "when_to_use": [
+        "Want interpretable error metric",
+        "Same units as target needed",
+        "Comparing models on same data"
+      ],
+      "interpretation": "Lower is better. Compare to standard deviation of target. Units match target variable.",
+      "example": "RMSE = $5000 means predictions off by $5000 on average (with emphasis on larger errors)",
+      "sklearn_function": "mean_squared_error(squared=False)",
+      "related_metrics": ["mse", "mae", "mape"]
+    },
+    
+    "mae": {
+      "name": "Mean Absolute Error",
+      "category": "regression",
+      "formula": "Σ|yi - ŷi| / n",
+      "range": "[0, ∞)",
+      "best_value": 0.0,
+      "beginner_explanation": "Average absolute difference between predictions and actual values. Treats all errors equally.",
+      "expert_explanation": "Expected value of absolute prediction error. More robust to outliers than MSE. Not differentiable at zero.",
+      "business_explanation": "Average prediction error. All errors weighted equally regardless of size.",
+      "when_to_use": [
+        "Outliers present",
+        "All errors equally important",
+        "Robust metric needed",
+        "Easy interpretation wanted"
+      ],
+      "interpretation": "Lower is better. Directly interpretable in original units.",
+      "advantages": ["Robust to outliers", "Easy to interpret", "Same units as target"],
+      "disadvantages": ["Not differentiable at 0", "Doesn't penalize large errors"],
+      "vs_rmse": "MAE more robust, RMSE penalizes large errors more",
+      "sklearn_function": "mean_absolute_error",
+      "related_metrics": ["rmse", "mse", "median_absolute_error"]
+    },
+    
+    "r2_score": {
+      "name": "R² Score (Coefficient of Determination)",
+      "category": "regression",
+      "formula": "1 - (Σ(yi - ŷi)²) / (Σ(yi - ȳ)²)",
+      "range": "(-∞, 1]",
+      "best_value": 1.0,
+      "beginner_explanation": "Proportion of variance explained by model. 1.0 = perfect, 0 = as good as mean, negative = worse than mean.",
+      "expert_explanation": "Proportion of variance in dependent variable predictable from independent variables. R² = 1 - SSres/SStot. Can be negative for poor fits.",
+      "business_explanation": "How much of the variation in outcomes does your model explain? 0.8 = explains 80% of variation.",
+      "when_to_use": [
+        "Want explained variance metric",
+        "Comparing models on same data",
+        "Assessing model quality"
+      ],
+      "interpretation": {
+        "1.0": "Perfect predictions",
+        "0.9": "Excellent (explains 90% of variance)",
+        "0.7": "Good",
+        "0.5": "Moderate",
+        "0.0": "As good as predicting mean",
+        "negative": "Worse than predicting mean"
+      },
+      "pitfalls": ["Can be negative on test set", "Increases with more features (use adjusted R²)", "Not directly comparable across datasets"],
+      "sklearn_function": "r2_score",
+      "related_metrics": ["adjusted_r2", "mse", "mae"]
+    },
+    
+    "logloss": {
+      "name": "Log Loss (Cross-Entropy Loss)",
+      "category": "classification",
+      "formula": "-Σ(yi*log(pi) + (1-yi)*log(1-pi)) / n",
+      "range": "[0, ∞)",
+      "best_value": 0.0,
+      "beginner_explanation": "Measures how far predicted probabilities are from actual labels. Penalizes confident wrong predictions heavily.",
+      "expert_explanation": "Negative log-likelihood of correct class. Measures calibration of probability predictions. Heavily penalizes confident incorrect predictions.",
+      "business_explanation": "How well-calibrated are the probability predictions? Lower means more trustworthy probabilities.",
+      "when_to_use": [
+        "Need probability predictions",
+        "Training probabilistic models",
+        "Calibration matters",
+        "Ranking quality important"
+      ],
+      "interpretation": {
+        "0.0": "Perfect probability predictions",
+        "0.69": "Random guessing (binary)",
+        "1.0": "Poor calibration",
+        "high": "Confident wrong predictions"
+      },
+      "advantages": ["Measures probability calibration", "Differentiable", "Penalizes confidence"],
+      "disadvantages": ["Sensitive to outliers", "Unbounded", "Hard to interpret"],
+      "sklearn_function": "log_loss",
+      "related_metrics": ["brier_score", "roc_auc", "calibration_curve"]
+    }
+  },
+  
+  "metrics_selection_guide": {
+    "classification": {
+      "balanced_classes": ["accuracy", "f1_score", "roc_auc"],
+      "imbalanced_classes": ["f1_score", "precision_recall_auc", "balanced_accuracy"],
+      "cost_sensitive": ["precision_or_recall_based_on_cost", "custom_metric"],
+      "probability_needed": ["logloss", "brier_score"],
+      "multi_class": ["macro_f1", "weighted_f1", "confusion_matrix"]
+    },
+    "regression": {
+      "general_purpose": ["rmse", "mae", "r2_score"],
+      "outliers_present": ["mae", "median_absolute_error", "huber_loss"],
+      "percentage_error": ["mape", "smape"],
+      "interpretability": ["mae", "rmse"],
+      "optimization": ["mse", "huber_loss"]
+    },
+    "business_context": {
+      "false_positives_costly": ["precision", "specificity"],
+      "false_negatives_costly": ["recall", "sensitivity"],
+      "both_matter": ["f1_score", "balanced_accuracy"],
+      "ranking_matters": ["roc_auc", "ndcg", "map"],
+      "calibration_matters": ["logloss", "brier_score", "calibration_curve"]
+    }
+  },
+  
+  "common_mistakes": {
+    "using_accuracy_for_imbalanced_data": {
+      "problem": "High accuracy can hide poor minority class performance",
+      "solution": "Use F1, precision-recall, or balanced accuracy"
+    },
+    "optimizing_wrong_metric": {
+      "problem": "Training on accuracy but caring about recall",
+      "solution": "Optimize the metric you actually care about"
+    },
+    "not_considering_baseline": {
+      "problem": "80% accuracy sounds good but baseline is 95%",
+      "solution": "Always compare to baseline (majority class, mean prediction)"
+    },
+    "confusing_precision_and_recall": {
+      "problem": "Optimizing precision when recall matters",
+      "solution": "Understand the business cost of FP vs FN"
+    },
+    "using_r2_across_datasets": {
+      "problem": "Comparing R² between different datasets",
+      "solution": "R² is not comparable across different datasets"
+    }
+  },
+  
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-01-14",
+    "total_metrics": 12,
+    "author": "Stephen Muema",
+    "description": "ML metrics encyclopedia for XAC Pro"
+  }
+}
