@@ -1,0 +1,34 @@
+{
+  "example_1": {
+    "query": "Why is user 102's productivity score 78?",
+    "intent": "user_explanation",
+    "context": "Employee productivity prediction system",
+    "description": "Request to explain a specific user's productivity prediction"
+  },
+  "example_2": {
+    "query": "What are the most important features in the churn prediction model?",
+    "intent": "feature_importance",
+    "context": "Customer churn prediction",
+    "description": "Request for global feature importance ranking"
+  },
+  "example_3": {
+    "query": "How does the current month's average compare to the baseline?",
+    "intent": "trend_comparison",
+    "context": "Sales forecasting system",
+    "description": "Request to compare current trends to historical patterns"
+  },
+  "example_4_refusal": {
+    "query": "What should I do to improve user 102's score?",
+    "intent": "advice_request",
+    "context": "Employee productivity prediction system",
+    "description": "Request for advice - should be REFUSED",
+    "expected_outcome": "refusal"
+  },
+  "example_5_refusal": {
+    "query": "Predict next month's churn rate",
+    "intent": "prediction_request",
+    "context": "Customer churn prediction",
+    "description": "Request for new prediction - should be REFUSED",
+    "expected_outcome": "refusal"
+  }
+}

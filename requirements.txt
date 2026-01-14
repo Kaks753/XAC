@@ -1,0 +1,34 @@
+# Explainable Analytics Copilot (XAC) Requirements
+# Python 3.12+ required
+
+# Core dependencies (minimal, all free)
+# No paid APIs or cloud services required
+
+# Data processing
+numpy>=1.24.0
+
+# For actual ML projects, you would typically have:
+# scikit-learn>=1.3.0  # For model training and feature importance
+# shap>=0.42.0         # For SHAP value computation
+# pandas>=2.0.0        # For data manipulation
+
+# Development and demo
+jupyter>=1.0.0        # For demo notebook
+notebook>=7.0.0       # Jupyter notebook interface
+
+# Optional: For enhanced demos (not required for core functionality)
+matplotlib>=3.7.0     # For visualizations in demo
+seaborn>=0.12.0       # For statistical visualizations
+
+# Testing (optional)
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+
+# Code quality (optional)
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.4.0
+
+# Note: This project is designed to work with MINIMAL dependencies
+# The core copilot functionality only requires Python standard library
+# Additional packages are for demos, testing, and integration with ML systems

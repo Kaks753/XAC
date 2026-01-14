@@ -1,0 +1,78 @@
+{
+  "evidence_id": "20260113_120000",
+  "generated_at": "2026-01-13T12:00:00Z",
+  "prediction": {
+    "entity_id": "user_102",
+    "prediction_value": 78.5,
+    "prediction_type": "regression",
+    "timestamp": "2026-01-13T12:00:00Z",
+    "model_version": "v2.1.0"
+  },
+  "feature_contributions": [
+    {
+      "feature_name": "task_switching",
+      "contribution_value": -0.31,
+      "feature_value": 15,
+      "rank": 1,
+      "percentage_contribution": 40.0
+    },
+    {
+      "feature_name": "sleep_deficit",
+      "contribution_value": -0.22,
+      "feature_value": 2.5,
+      "rank": 2,
+      "percentage_contribution": 28.5
+    },
+    {
+      "feature_name": "meeting_hours",
+      "contribution_value": -0.15,
+      "feature_value": 4.2,
+      "rank": 3,
+      "percentage_contribution": 19.4
+    },
+    {
+      "feature_name": "focus_time",
+      "contribution_value": 0.08,
+      "feature_value": 3.5,
+      "rank": 4,
+      "percentage_contribution": 10.3
+    },
+    {
+      "feature_name": "collaboration_score",
+      "contribution_value": 0.05,
+      "feature_value": 7.8,
+      "rank": 5,
+      "percentage_contribution": 6.5
+    }
+  ],
+  "confidence_level": "high",
+  "base_value": 88.0,
+  "historical_comparison": {
+    "current_value": 78.5,
+    "baseline_value": 88.0,
+    "recent_average": 85.2,
+    "percentile_rank": 35.0,
+    "std_deviation": 5.3,
+    "trend_direction": "stable",
+    "comparison_period": "last_30_days"
+  },
+  "model_performance": {
+    "model_type": "gradient_boosting",
+    "primary_metric": "r2_score",
+    "primary_metric_value": 0.847,
+    "secondary_metrics": {
+      "rmse": 6.23,
+      "mae": 4.81
+    },
+    "test_set_size": 2500,
+    "last_training_date": "2026-01-01"
+  },
+  "limitations": [
+    "Explanation is based on correlational patterns, not causal relationships",
+    "SHAP values show feature importance for this specific instance",
+    "Model assumptions may not hold for out-of-distribution data",
+    "Feature interactions beyond pairwise may not be fully captured"
+  ],
+  "data_quality_notes": null,
+  "assumptions": null
+}
